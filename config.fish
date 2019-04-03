@@ -1,4 +1,5 @@
 
+fish_vi_key_bindings
 set -gx EDITOR vim
 
 set fish_function_path ~/.fish/functions $fish_function_path
