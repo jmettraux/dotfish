@@ -87,7 +87,7 @@ set -g __fish_git_prompt_char_stagedstate "."
 set -g __fish_git_prompt_char_dirtystate "+"
 set -g __fish_git_prompt_char_conflictedstate "x"
 set -g __fish_git_prompt_char_cleanstate "ok"
-#set -g __fish_git_prompt_char_untrackedfiles "…"
+set -g __fish_git_prompt_char_untrackedfiles "…"
 
 set -g __fish_git_prompt_color_dirtystate blue
 set -g __fish_git_prompt_color_stagedstate yellow
