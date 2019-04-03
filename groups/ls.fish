@@ -1,21 +1,21 @@
 
 function ll
-  ls -al
+  ls -al $argv
 end
 function lh
-  ls -alh
+  ls -alh $argv
 end
 
 function t
-  tree -C
+  tree -C $argv
 end
 function ta
-  tree -Ca
+  tree -Ca $argv
 end
 function th
-  tree -Ch
+  tree -Ch $argv
 end
 function tah
-  tree -Cah
+  tree -Cah $argv
 end
 
