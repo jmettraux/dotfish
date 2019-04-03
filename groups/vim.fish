@@ -1,16 +1,16 @@
 
 function v
-  vim
+  vim $argv
 end
 function vi
-  vim
+  vim $argv
 end
 function :e
-  vim
+  vim $argv
 end
 
 function vic
-  vim -c 'execute "silent !echo " . &fileencoding | q'
+  vim -c 'execute "silent !echo " . &fileencoding | q' $argv
 end
 
 function vb
@@ -21,5 +21,13 @@ function vd
 end
 function vl
   vim -c "call feedkeys(\";l\")" # open git log
+end
+
+function vt
+  if test (count $argv) -lt 1
+    vim -c ":Vt ."
+  else
+    vim -c ":Vt $argv"
+  end
 end
 
