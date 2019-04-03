@@ -1,11 +1,12 @@
 
 set -gx EDITOR vim
 
-source ~/.fish/ls.fish
-source ~/.fish/git.fish
-source ~/.fish/vim.fish
+set fish_function_path ~/.fish/functions $fish_function_path
 
-for pa in _*.fish
+for pa in ~/.fish/groups/*.fish
+  source $pa
+end
+for pa in ~/.fish/locals/*.fish
   source $pa
 end
 
