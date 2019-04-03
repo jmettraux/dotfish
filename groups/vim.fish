@@ -1,7 +1,13 @@
 
-alias v=vim
-alias vi=vim
-alias :e=vim
+function v
+  vim
+end
+function vi
+  vim
+end
+function :e
+  vim
+end
 
 function vic
   vim -c 'execute "silent !echo " . &fileencoding | q'
