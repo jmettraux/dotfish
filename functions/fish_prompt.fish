@@ -46,7 +46,8 @@ function fish_prompt
   end
 
   echo -n -s \
-    $c_grey "$user" $c_darkgrey @ $c_lightgrey (prompt_hostname) ' ' \
+    $c_grey (date "+%H%M%S") ' ' \
+    $c_lightgrey "$user" ' ' (prompt_hostname) ' ' \
     $c_grey $os $c_normal ' ' $c_darkgreen (prompt_pwd) \
     $c_normal (__fish_vcs_prompt) $c_normal $prompt_status $c_darkgrey $suffix ' '
 end
@@ -57,8 +58,16 @@ end
 set -g __fish_git_prompt_show_informative_status 1
 set -g __fish_git_prompt_hide_untrackedfiles 1
 
-#set -g __fish_git_prompt_color_branch magenta bold
-set -g __fish_git_prompt_color_branch FF9400
+set -g __fish_git_prompt_color 292929
+set -g __fish_git_prompt_color_branch FF8800
+set -g __fish_git_prompt_color_dirtystate FFFF00
+set -g __fish_git_prompt_color_stagedstate 99FF00
+set -g __fish_git_prompt_color_invalidstate red
+set -g __fish_git_prompt_color_cleanstate green
+#set -g __fish_git_prompt_color_untrackedfiles $fish_color_normal
+set -g __fish_git_prompt_color_untrackedfiles 191919
+set -g __fish_git_prompt_color_upstream 494949
+
 set -g __fish_git_prompt_showupstream "informative"
 set -g __fish_git_prompt_char_upstream_ahead "↑"
 set -g __fish_git_prompt_char_upstream_behind "↓"
@@ -68,14 +77,9 @@ set -g __fish_git_prompt_char_upstream_prefix ""
 #set -g __fish_git_prompt_char_dirtystate "✚"
 set -g __fish_git_prompt_char_stagedstate "."
 set -g __fish_git_prompt_char_dirtystate "+"
-set -g __fish_git_prompt_char_conflictedstate "x"
-set -g __fish_git_prompt_char_cleanstate "ok"
+set -g __fish_git_prompt_char_conflictedstate "×"
+set -g __fish_git_prompt_char_cleanstate "○"
 set -g __fish_git_prompt_char_untrackedfiles "…"
+set -g __fish_git_prompt_char_stateseparator "|"
 
-set -g __fish_git_prompt_color_dirtystate blue
-set -g __fish_git_prompt_color_stagedstate yellow
-set -g __fish_git_prompt_color_invalidstate red
-set -g __fish_git_prompt_color_untrackedfiles $fish_color_normal
-#set -g __fish_git_prompt_color_cleanstate green bold
-set -g __fish_git_prompt_color_cleanstate green
 
