@@ -34,7 +34,10 @@ function fish_prompt
   switch $os
   case Darwin
     set os 'ダ'
-  case '*'
+  case OpenBSD
+    set os 'オ'
+  case Linux
+    set os 'リ'
   end
 
   set -l prompt_status

@@ -8,13 +8,13 @@ function fish_right_prompt
 
     switch $fish_bind_mode
     case default
-      printf '[N]'
+      printf '令'
     case insert
-      printf '[I]'
+      printf '入'
     case replace_one
-      printf '[r]'
+      printf '換'
     case visual
-      printf '[v]'
+      printf '視'
     end
     set_color normal
   end
