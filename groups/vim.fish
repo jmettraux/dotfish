@@ -31,3 +31,15 @@ function vt
   end
 end
 
+function vg
+  # TODO investigate why :Vg doesn't add the dot :-(
+  if test (count $argv) -eq 1
+    vim -c ":Vg \"$argv[1]\" ."
+  else
+    vim -c ":Vg \"$argv[1]\" $argv[2..-1]"
+  end
+end
+function Vg
+  vg $argv
+end
+
