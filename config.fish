@@ -2,6 +2,10 @@
 fish_vi_key_bindings
 set -gx EDITOR vim
 
+#bind -M insert -k right forward-char # right-arrow
+bind -M insert ] forward-char
+
+
 set fish_function_path ~/.fish/functions $fish_function_path
 
 for pa in ~/.fish/groups/*.fish
