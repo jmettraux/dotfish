@@ -5,6 +5,8 @@ set -gx EDITOR vim
 #bind -M insert -k right forward-char # right-arrow
 bind -M insert ] forward-char
 
+set -x PATH ~/bin $PATH
+
 
 set fish_function_path ~/.fish/functions $fish_function_path
 
