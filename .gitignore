@@ -1,4 +1,10 @@
 
+.vimrc
+.viminfo
+.vimgrep
+.vimmarks
+.vimspec
 *.swp
+
 locals/*.fish
 
