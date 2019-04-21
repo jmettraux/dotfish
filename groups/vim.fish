@@ -32,8 +32,23 @@ function vt
 end
 
 function vs # vi source
-  #vim -c ":Vt lib"
-  vt lib
+  if test -d src/
+    vt src/
+  else if test -d lib/
+    vt lib/
+  else
+    vt ./
+  end
+end
+
+function vc # vi spec
+  if test -d spec/
+    vt spec/
+  else if test -d test/
+    vt test/
+  else
+    vt ./
+  end
 end
 
 function vg
