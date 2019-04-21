@@ -31,6 +31,11 @@ function vt
   end
 end
 
+function vs # vi source
+  #vim -c ":Vt lib"
+  vt lib
+end
+
 function vg
   # TODO investigate why :Vg doesn't add the dot :-(
   if test (count $argv) -eq 1
