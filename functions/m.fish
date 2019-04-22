@@ -1,5 +1,10 @@
 
 function m
-  make $argv
+  switch (uname)
+  case OpenBSD
+    gmake $argv
+  case '*'
+    make $argv
+  end
 end
 
