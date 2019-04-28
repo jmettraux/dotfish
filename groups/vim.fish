@@ -9,6 +9,10 @@ function :e
   vim $argv
 end
 
+function vf
+  vim (find . -name "*$argv[1]*" | head -1)
+end
+
 function vic
   vim -c 'execute "silent !echo " . &fileencoding | q' $argv
 end
