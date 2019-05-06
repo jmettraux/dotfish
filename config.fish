@@ -4,6 +4,7 @@ set -gx EDITOR vim
 
 #bind -M insert -k right forward-char # right-arrow
 bind -M insert ] forward-char
+#bind \cd delete-char
 
 set -x PATH ~/bin $PATH
 
