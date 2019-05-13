@@ -16,11 +16,19 @@ function chruby
 
   set -gx RUBY_ENGINE $rubyev[1]
   set -gx RUBY_VERSION $rubyev[2]
-  #echo "\$RUBY_ENGINE: $RUBY_ENGINE"
-  #echo "\$RUBY_VERSION: $RUBY_VERSION"
+  echo "\$RUBY_ENGINE: $RUBY_ENGINE"
+  echo "\$RUBY_VERSION: $RUBY_VERSION"
+
+  set -l c_ruby_version $RUBY_VERSION
+    #
+  if test $RUBY_ENGINE = 'jruby'
+    set c_ruby_version \
+      (string join "." \
+        (string split "." -- $RUBY_VERSION)[2..-1])
+  end
 
   set -gx RUBY_ROOT $rubydir/$rubyver
-  set -gx GEM_HOME $gemdir/$RUBY_ENGINE/$RUBY_VERSION
+  set -gx GEM_HOME $gemdir/$RUBY_ENGINE/$c_ruby_version
   set -gx GEM_ROOT $RUBY_ROOT/lib/ruby/gems/(ls $RUBY_ROOT/lib/ruby/gems)[1]
   set -gx GEM_PATH $GEM_HOME:$GEM_ROOT
   #echo "\$RUBY_ROOT: $RUBY_ROOT"
