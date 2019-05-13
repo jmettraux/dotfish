@@ -9,9 +9,6 @@ bind -M insert ] forward-char
 set -x PATH ~/bin $PATH
 
 
-source ~/.fish/ssh.fish
-
-
 set fish_function_path ~/.fish/functions $fish_function_path
 
 for pa in ~/.fish/groups/*.fish
