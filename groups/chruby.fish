@@ -1,25 +1,33 @@
 
-set -gx _RUBIES (realpath ~/.rubies)
-set -gx _GEMS (realpath ~/.gem)
-
-
+# $chruby            # change ruby to .ruby-version
+# $chruby list       # list rubies in ~/.rubies
+# $chruby jruby-9.2  # change to jruby-9.2*
+# $chruby ruby 2.3   # change to ruby-2.3*
+#
 function chruby
 
-  if test "$argv" = "list"; chruby_list; return; end
+  set -l RUBIES (realpath ~/.rubies)
+  set -l GEMS (realpath ~/.gem)
 
-  set -q FISH_NO_CRUBY; if test $status = 0; return; end
-  if test ! -e .ruby-version; return; end
+  if test "$argv" = "list"
+    for r in $RUBIES/*; echo (basename $r); end
+    return 0
+  end
+
+  set -q FISH_NO_CRUBY; if test $status = 0; return 0; end
+  if test ! -e .ruby-version; return 0; end
 
   # clear, change ruby
 
   set -l as $argv
   if test (count $argv) = 0; set as (cat .ruby-version); end
+  set as (string join '-' $as)
     #
-  set -l rubyver (ls $_RUBIES | grep (string join '-' $argv) | head -1)
+  set -l rubyver (ls $RUBIES | grep $as | head -1)
+    #
+  if test "$rubyver" = ""; echo "no ruby >$as< found"; return 1; end
 
   set -l rubyev (string split "-" -- $rubyver)
-  #echo $rubyver
-  #echo $rubyev
 
   set -gx RUBY_ENGINE $rubyev[1]
   set -gx RUBY_VERSION $rubyev[2]
@@ -34,8 +42,8 @@ function chruby
         (string split "." -- $RUBY_VERSION)[2..-1])
   end
 
-  set -gx RUBY_ROOT $_RUBIES/$rubyver
-  set -gx GEM_HOME $_GEMS/$RUBY_ENGINE/$c_ruby_version
+  set -gx RUBY_ROOT $RUBIES/$rubyver
+  set -gx GEM_HOME $GEMS/$RUBY_ENGINE/$c_ruby_version
   set -gx GEM_ROOT $RUBY_ROOT/lib/ruby/gems/(ls $RUBY_ROOT/lib/ruby/gems)[1]
   set -gx GEM_PATH $GEM_HOME:$GEM_ROOT
   #echo "\$RUBY_ROOT: $RUBY_ROOT"
@@ -43,14 +51,14 @@ function chruby
   #echo "\$GEM_ROOT: $GEM_ROOT"
   #echo "\$GEM_PATH: $GEM_PATH"
 
-  set -l rl (string length $_RUBIES)
-  set -l gl (string length $_GEMS)
+  set -l rl (string length $RUBIES)
+  set -l gl (string length $GEMS)
   set -l path
     #
   for pa in $PATH
     set pa (realpath $pa)
-    if test (string sub -l $rl $pa) = $_RUBIES; continue; end
-    if test (string sub -l $gl $pa) = $_GEMS; continue; end
+    if test (string sub -l $rl $pa) = $RUBIES; continue; end
+    if test (string sub -l $gl $pa) = $GEMS; continue; end
     if contains $pa $path; continue; end
     set path $path $pa
   end
@@ -61,12 +69,9 @@ function chruby
   echo "ruby set to $RUBY_ROOT"
 end
 
-function chruby_list
 
-  for r in $_RUBIES/*; echo (basename $r); end
-end
-
-
+# each time the variable PWD changes on value, call chruby...
+#
 function l --on-variable PWD
 
   chruby
