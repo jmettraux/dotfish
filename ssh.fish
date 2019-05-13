@@ -1,7 +1,7 @@
 
 # from https://gist.github.com/gerbsen/5fd8aa0fde87ac7a2cae
 
-setenv SSH_ENV $HOME/.ssh/agent.env
+setenv SSH_ENV $HOME/.ssh/agent.fish.env
 
 function start_agent
   echo "Initializing new SSH agent ..."
