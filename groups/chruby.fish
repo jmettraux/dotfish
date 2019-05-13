@@ -16,8 +16,8 @@ function chruby
 
   set -gx RUBY_ENGINE $rubyev[1]
   set -gx RUBY_VERSION $rubyev[2]
-  echo "\$RUBY_ENGINE: $RUBY_ENGINE"
-  echo "\$RUBY_VERSION: $RUBY_VERSION"
+  #echo "\$RUBY_ENGINE: $RUBY_ENGINE"
+  #echo "\$RUBY_VERSION: $RUBY_VERSION"
 
   set -l c_ruby_version $RUBY_VERSION
     #
