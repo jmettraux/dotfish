@@ -14,12 +14,18 @@ function chruby
     return 0
   end
 
-  set -q FISH_NO_CRUBY; if test $status = 0; return 0; end
+  set -q FISH_NO_CHRUBY; if test $status = 0; return 0; end
 
   # clear, change ruby
 
   set -l as $argv
-  if test (count $argv) = 0; set as (cat .ruby-version); end
+  if test (count $argv) = 0
+    if test -f .ruby-version
+      set as (cat .ruby-version)
+    else
+      return 0
+    end
+  end
   set as (string join '-' $as)
     #
   set -l rubyver (ls $RUBIES | grep $as | head -1)
@@ -65,7 +71,9 @@ function chruby
   set -gx PATH $GEM_HOME/bin $GEM_ROOT/bin $RUBY_ROOT/bin $path
   #echo "\$PATH: $PATH"
 
-  echo "ruby set to $RUBY_ROOT"
+  if test "$FISH_CHRUBY_SILENT" = ""
+    echo "ruby set to $RUBY_ROOT"
+  end
 end
 
 
