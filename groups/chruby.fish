@@ -15,7 +15,6 @@ function chruby
   end
 
   set -q FISH_NO_CRUBY; if test $status = 0; return 0; end
-  if test ! -e .ruby-version; return 0; end
 
   # clear, change ruby
 
