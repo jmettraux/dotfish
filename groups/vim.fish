@@ -39,6 +39,10 @@ function vT
   vim -c "call feedkeys(\";t\")" # open .todo.md
 end
 
+function vp
+  vim -c "OpenPrevious"
+end
+
 function vs # vi source
   if test -d src/
     vt src/
