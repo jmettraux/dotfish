@@ -1,13 +1,4 @@
 
-# chruby, thanks to https://github.com/JeanMertz/chruby-fish
-#source /usr/local/share/chruby/chruby.fish
-#source /usr/local/share/chruby/auto.fish
-#function cr
-#  source /usr/local/share/chruby/chruby.fish
-#  source /usr/local/share/chruby/auto.fish
-#end
-
-
 # ruby
 
 function rv
