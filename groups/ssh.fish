@@ -22,12 +22,10 @@ function test_identities
   end
 end
 
-if [ -f $HOME/.ssh/no.agent.fish ]
-  # a cheap way out on servers
-  # do nothing
-else if [ -n "$SSH_AGENT_PID" ]
+if [ -n "$SSH_AUTH_SOCK" ]
   #ps -ef | grep $SSH_AGENT_PID | grep ssh-agent > /dev/null
-  ps aux | grep $SSH_AGENT_PID | grep ssh-agent > /dev/null
+  #ps aux | grep $SSH_AGENT_PID | grep ssh-agent > /dev/null
+  ps aux | grep "ssh-agent -c" > /dev/null
   if [ $status -eq 0 ]
     test_identities
   end
