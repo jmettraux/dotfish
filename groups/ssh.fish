@@ -24,7 +24,7 @@ end
 
 echo (set_color 292929)
 
-if test -f "$SSH_CONNECTION"
+if test -n "$SSH_CONNECTION"
 
   echo "(ssh.fish) connecting in ($SSH_CONNECTION), trusting agent forwarding."
 
