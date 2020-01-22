@@ -4,9 +4,9 @@
 setenv SSH_ENV $HOME/.ssh/agent.fish.env
 
 function start_agent
-  echo "Initializing new SSH agent ..."
+  echo "(ssh.fish) initializing new SSH agent..."
   ssh-agent -c | sed 's/^echo/#echo/' > $SSH_ENV
-  echo "succeeded"
+  echo "(ssh.fish) succeeded."
   chmod 600 $SSH_ENV
   . $SSH_ENV > /dev/null
   ssh-add
@@ -22,27 +22,38 @@ function test_identities
   end
 end
 
-if [ -f $HOME/.ssh/no.agent.fish ]
-  # a cheap way out on servers
-  # do nothing
-else if [ -n "$SSH_AGENT_PID" ]
-  #ps -ef | grep $SSH_AGENT_PID | grep ssh-agent > /dev/null
+echo (set_color 292929)
+
+if test -f "$SSH_CONNECTION"
+
+  echo "(ssh.fish) connecting in ($SSH_CONNECTION), trusting agent forwarding."
+
+else if test -n "$SSH_AGENT_PID"
+
+  echo "(ssh.fish) agent already on and known ($SSH_AGENT_PID)..."
+
   ps aux | grep $SSH_AGENT_PID | grep ssh-agent > /dev/null
   if [ $status -eq 0 ]
     test_identities
   end
+
 else
-  if [ -f $SSH_ENV ]
+
+  echo "(ssh.fish) lock to already existing agent ($SSH_ENV)..."
+
+  if test -f $SSH_ENV
     . $SSH_ENV > /dev/null
   end
-  #ps -ef | grep $SSH_AGENT_PID | grep -v grep | grep ssh-agent > /dev/null
   ps aux | grep $SSH_AGENT_PID | grep -v grep | grep ssh-agent > /dev/null
-  if [ $status -eq 0 ]
+  if test $status -eq 0
     test_identities
   else
+    echo "(ssh.fish) ouch, have to start an agent..."
     start_agent
   end
 end
 
 # use `set -e SSH_AGENT_PID` to unset
+
+echo -n (set_color normal)
 
