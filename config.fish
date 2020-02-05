@@ -5,14 +5,17 @@ if status is-interactive
   # ---8<---
   # bind: No key with name 'right' found
   # bind: No key with name 'left' found
+  # ...
   # --->8---
 
   fish_vi_key_bindings
   set -gx EDITOR vim
 
   #bind -M insert -k right forward-char # right-arrow
-  bind -M insert ] forward-char
   #bind \cd delete-char
+
+  #bind -M insert "]" forward-char
+  bind -M insert "}" forward-char
 end
 
 set -x PATH ~/bin $PATH
