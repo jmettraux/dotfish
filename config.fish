@@ -16,7 +16,7 @@ if status is-interactive
   #bind -k \sleft backward-char
 
   #bind -M insert "]" forward-char
-  #bind -M insert "}" forward-char
+  bind -M insert "}" forward-char
 end
 
 set -x PATH ~/bin $PATH
