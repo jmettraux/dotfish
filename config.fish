@@ -13,9 +13,10 @@ if status is-interactive
 
   #bind -M insert -k right forward-char # right-arrow
   #bind \cd delete-char
+  #bind -k \sleft backward-char
 
   #bind -M insert "]" forward-char
-  bind -M insert "}" forward-char
+  #bind -M insert "}" forward-char
 end
 
 set -x PATH ~/bin $PATH
