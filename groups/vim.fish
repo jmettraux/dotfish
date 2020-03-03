@@ -8,9 +8,6 @@ end
 function :e
   vim $argv
 end
-function li
-  view $argv
-end
 
 function vf
   vim (find . -name "*$argv[1]*" | head -1)
