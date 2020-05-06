@@ -20,10 +20,10 @@ function fish_prompt
     else
       set color_cwd $fish_color_cwd
     end
-    set user '車'
+    set user '^'
     set suffix ' #'
   case jmettraux
-    set user '我'
+    set user '_'
     set suffix ' >'
   case '*'
     set color_cwd $fish_color_cwd
@@ -33,11 +33,11 @@ function fish_prompt
   set -l os (uname)
   switch $os
   case Darwin
-    set os 'ダ'
+    set os 'd'
   case OpenBSD
-    set os 'オ'
+    set os 'o'
   case Linux
-    set os 'リ'
+    set os 'l'
   end
 
   set -l prompt_status
