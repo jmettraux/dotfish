@@ -20,6 +20,7 @@ if status is-interactive
 end
 
 set -x PATH ~/bin $PATH
+set -x MANPAGER less
 
 
 set fish_function_path ~/.fish/functions $fish_function_path
