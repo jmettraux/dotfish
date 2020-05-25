@@ -1,9 +1,23 @@
 
+
+#export LSCOLORS=gxfxbEaEBxxEhEhBaDaCaD
+#export LSCOLORS=exfxfeaeBxxehehbadacea
+export LSCOLORS=gxBxhxDxfxhxhxhxhxcxcx
+
+
 function ll
-  ls -al $argv
+  if test -e /usr/local/bin/colorls
+    colorls -Gal $argv
+  else
+    ls -al $argv
+  end
 end
 function lh
-  ls -alh $argv
+  if test -e /usr/local/bin/colorls
+    colorls -Galh $argv
+  else
+    ls -alh $argv
+  end
 end
 
 if test (uname) = 'OpenBSD'
