@@ -3,7 +3,7 @@
 
 setenv SSH_ENV $HOME/.ssh/agent.fish.env
 
-function start_agent
+function start_ssh_agent
   #echo "(ssh.fish) initializing new SSH agent..."
   ssh-agent -c | sed 's/^echo/#echo/' > $SSH_ENV
   #echo "(ssh.fish) succeeded."
@@ -17,9 +17,17 @@ function test_identities
   if [ $status -eq 0 ]
     ssh-add
     if [ $status -eq 2 ]
-      start_agent
+      start_ssh_agent
     end
   end
+end
+
+function connect_to_ssh_agent
+  . $SSH_ENV
+  echo "---8<---"
+  cat $SSH_ENV
+  echo "--->8---"
+  ssh-add -l
 end
 
 #echo (set_color 292929)
@@ -42,14 +50,14 @@ else
   #echo "(ssh.fish) lock to already existing agent ($SSH_ENV)..."
 
   if test -f $SSH_ENV
-    . $SSH_ENV > /dev/null
+    connect_to_ssh_agent > /dev/null
   end
   ps aux | grep $SSH_AGENT_PID | grep -v grep | grep ssh-agent > /dev/null
   if test $status -eq 0
     test_identities
   else
     #echo "(ssh.fish) ouch, have to start an agent..."
-    start_agent
+    start_ssh_agent
   end
 end
 
