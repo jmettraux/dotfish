@@ -4,17 +4,17 @@ function fish_right_prompt
   if test "$fish_key_bindings" = "fish_vi_key_bindings"
       or test "$fish_key_bindings" = "fish_hybrid_key_bindings"
 
-    set_color --bold 191919
+    set_color --bold 444444
 
     switch $fish_bind_mode
     case default
-      printf '令'
+      printf 'o '
     case insert
-      printf '入'
+      printf 'i '
     case replace_one
-      printf '換'
+      printf 'r '
     case visual
-      printf '視'
+      printf 'v '
     end
     set_color normal
   end

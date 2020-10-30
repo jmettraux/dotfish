@@ -15,8 +15,8 @@ if status is-interactive
   #bind \cd delete-char
   #bind -k \sleft backward-char
 
-  #bind -M insert "]" forward-char
-  bind -M insert "}" forward-char
+  bind -M insert \cj history-search-backward
+  bind -M insert \c] forward-char
 end
 
 set -x PATH ~/bin $PATH
