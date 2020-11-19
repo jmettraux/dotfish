@@ -3,6 +3,7 @@
 # $ chruby list       # list rubies in ~/.rubies
 # $ chruby jruby-9.2  # change to jruby-9.2*
 # $ chruby ruby 2.3   # change to ruby-2.3*
+# $ chruby 2.3        # change to [j]ruby-2.3*
 #
 function chruby
 
