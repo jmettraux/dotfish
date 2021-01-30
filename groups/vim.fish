@@ -47,22 +47,25 @@ function vp
 end
 
 function vs # vi source
-  if test -d src/
-    vt src/
-  else if test -d lib/
-    vt lib/
-  else
-    vt ./
+  if test -d src/; vt src/
+  else if test -d lib/; vt lib/
+  else; vt ./
   end
 end
 
 function vc # vi spec
-  if test -d spec/
-    vt spec/
-  else if test -d test/
-    vt test/
-  else
-    vt ./
+  if test -d spec/; vt spec/
+  else if test -d test/; vt test/
+  else; vt ./
+  end
+end
+
+function vv # vi content
+  if test -d posts/; vt posts/
+  else if test -d src/; vt src/
+  else if test -d lib/; vt lib/
+  else if test -d scripts/; vt scripts/
+  else; vt ./
   end
 end
 
