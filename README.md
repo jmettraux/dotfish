@@ -4,6 +4,15 @@
 My [Fish](https://fishshell.com) configuration.
 
 
+## linking into .config/fish/
+
+```
+.config/fish/
+|-- completions/ -> /home/jmettraux/.fish/completions/
+`-- config.fish -> /home/jmettraux/.fish/config.fish
+```
+
+
 ## docs
 
 * https://github.com/jorgebucaran/fish-cookbook
