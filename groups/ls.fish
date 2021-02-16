@@ -12,13 +12,14 @@ function ll
     ls -al $argv
   end
 end
-function lh
+function llh
   if test -e /usr/local/bin/colorls
     colorls -Galh $argv
   else
     ls -alh $argv
   end
 end
+alias lh=llh
 
 if test (uname) = 'OpenBSD'
 
