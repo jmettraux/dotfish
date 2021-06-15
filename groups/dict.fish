@@ -1,6 +1,10 @@
 
 # dict aliases
 
+function dct
+  #dict $argv | $PAGER
+  dict $argv | less
+end
 function dth
   dict -d moby-thesaurus $argv
 end
