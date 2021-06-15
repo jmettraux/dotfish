@@ -81,3 +81,14 @@ function Vg
   vg $argv
 end
 
+function vj
+  vt scripts/
+end
+
+function va
+  if test -d app/views/; vt app/views/
+  else if test -d app/; vt app/
+  else; vt ./
+  end
+end
+
