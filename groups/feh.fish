@@ -2,7 +2,7 @@
 # feh
 
 function fe
-  feh -d -F $argv
+  feh -d -F --info "echo '%F %s %S %hx%w %z'" $argv
 end
 
 function qfe
