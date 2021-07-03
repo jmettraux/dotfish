@@ -82,7 +82,8 @@ function Vg
 end
 
 function vj
-  vt scripts/
+  #vt scripts/
+  vim -c "call feedkeys(\";j\")" # scripts/ js/ or src/
 end
 
 function va
