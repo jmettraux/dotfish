@@ -65,3 +65,12 @@ end
 
 #echo -n (set_color normal)
 
+
+#
+# # Notes
+#
+# ssh-keygen -t ed25519 -a 100 -f roku -C jmettraux+roku@gmail.com
+#
+# then append roku.pub line to target's .ssh/authorized_keys
+#
+
