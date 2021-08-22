@@ -13,3 +13,12 @@ function ires
   convert $argv[1] -resize 256x256 resized_$argv[1]
 end
 
+function jo
+
+  jpegoptim -s $argv
+end
+  #
+  # jo --size=50k x.jpg
+  #
+  # WARNING: affects the target file!
+
