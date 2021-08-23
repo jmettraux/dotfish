@@ -74,3 +74,8 @@ end
 # then append roku.pub line to target's .ssh/authorized_keys
 #
 
+function add_ssh_keys
+
+  ssh-add ~/.ssh/(hostname -s) ~/.ssh/github
+end
+
