@@ -11,6 +11,6 @@ m = File.mtime(OUT).to_f
 exit 0 if m <= m0
 
 File.open(LAST, 'wb') { |f| f.write(m.to_s + "\n") }
-system("lpr #{OUT}")
+system("/usr/bin/lpr #{OUT}")
 system("mv #{OUT} #{BAK}")
 
