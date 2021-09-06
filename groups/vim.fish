@@ -13,6 +13,21 @@ function vf
   vim (find . -name "*$argv[1]*" | head -1)
 end
 
+function vss
+
+  set paths lib out
+
+  set n (basename (pwd))
+  set fa (find $paths -name "$n.css" | head -1)
+  set fb (find $paths -name "style.css" | head -1)
+  set fc (find $paths -name "*.css" | head -1)
+
+  if test -n "$fa"; vim $fa
+  else if test -n "$fb"; vim $fb
+  else if test -n "$fc"; vim $fc
+  end
+end
+
 function vic
   vim -c 'execute "silent !echo " . &fileencoding | q' $argv
 end
