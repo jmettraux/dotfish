@@ -22,3 +22,8 @@ end
   #
   # WARNING: affects the target file!
 
+# https://dataswamp.org/~solene/2021-09-07-potw-pngquant.html
+  #
+  # optipng
+  # pngquant
+
