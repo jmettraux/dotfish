@@ -71,6 +71,7 @@ end
 function vc # vi spec
   if test -d spec/; vt spec/
   else if test -d test/; vt test/
+  else if test -d src/; vt src/
   else; vt ./
   end
 end
