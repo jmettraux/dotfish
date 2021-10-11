@@ -5,6 +5,9 @@ end
 function vi
   vim $argv
 end
+function ci
+  vim $argv
+end
 function :e
   vim $argv
 end
