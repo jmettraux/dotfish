@@ -6,3 +6,7 @@ function qrim
   qrencode -o - -t PNG | feh -g 600x600 -Z -
 end
 
+function qrdecode
+  zbarimg $argv
+end
+
