@@ -2,6 +2,8 @@
 
 H = ENV['HOME']
 
+pdftops_options = '-rasterize never'
+
 
 # out.pdf prints SIMPLEX
 
@@ -20,7 +22,7 @@ if m > m0
 end
 
 
-# out2.pdf prints DUPLEX
+# out2.pdf prints /Duplex true /Tumble true
 
 out = "#{H}/Downloads/out2.pdf"
 bak = "#{H}/Downloads/out2.bak.pdf"
@@ -34,10 +36,36 @@ m = File.mtime(out).to_f rescue 0.0
 if m > m0
 
   File.open(last, 'wb') { |f| f.write(m.to_s + "\n") }
-  system("pdftops #{out} #{ps}")
+  system("pdftops #{pdftops_options} #{out} #{ps}")
   File.open(ps2, 'wb') do |f|
     f.write("%!\n")
     f.write("<< /Duplex true /Tumble true >> setpagedevice\n")
+    f.write(File.read(ps))
+  end
+  system("/usr/bin/lpr #{ps2}")
+  system("rm #{ps} #{ps2}")
+  system("mv #{out} #{bak}")
+end
+
+
+# out2f.pdf prints /Duplex true /Tumble false
+
+out = "#{H}/Downloads/out2f.pdf"
+bak = "#{H}/Downloads/out2f.bak.pdf"
+ps = "#{H}/Downloads/out_.ps"
+ps2 = "#{H}/Downloads/out2f.ps"
+last = "#{H}/.last_out2f_pdf"
+
+m0 = File.read(last).strip.to_f rescue 0.0
+m = File.mtime(out).to_f rescue 0.0
+
+if m > m0
+
+  File.open(last, 'wb') { |f| f.write(m.to_s + "\n") }
+  system("pdftops #{pdftops_options} #{out} #{ps}")
+  File.open(ps2, 'wb') do |f|
+    f.write("%!\n")
+    f.write("<< /Duplex true /Tumble false >> setpagedevice\n")
     f.write(File.read(ps))
   end
   system("/usr/bin/lpr #{ps2}")
