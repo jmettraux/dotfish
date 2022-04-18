@@ -3,11 +3,11 @@ function giu
   git status
 end
 function gid
-  git diff $argv
+  git diff --cached $argv
 end
 
 function gids
-  git diff --stat $argv
+  git diff --cached --stat $argv
 end
 function gdw
   git diff --word-diff $argv
