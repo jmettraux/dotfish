@@ -1,0 +1,32 @@
+
+export JAVA_HOME=/c/Program\ Files/Java/jdk-11.0.1
+export RUBY_ROOT=~/jruby-9.3.4.0
+export GEM_HOME=~/.gem/jruby/3.4.0
+export GEM_ROOT=$RUBY_ROOT/lib/ruby/gems/shared
+export GEM_PATH=$GEM_HOME:$GEM_ROOT
+export PATH=$RUBY_ROOT/bin:$JAVA_HOME/bin:$PATH:/c/Program\ Files/PostgreSQL/10/bin
+
+alias ll="ls -al"
+
+alias vb="vim -c 'ListFiles'"
+alias vl="vim -c 'call feedkeys(\";l\")'"
+alias vd="vim -c 'call feedkeys(\";d\")'"
+
+#alias vt="vim -c ':Vt ${1:-.}'"
+#alias vt="vim -c \":Vt $*\""
+function vt() {
+  if [[ $# -gt 0 ]]; then
+    vim -c ":Vt $1"
+  else
+    vim -c ":Vt ."
+  fi
+}
+
+alias giu="git status"
+#alias gil="git log --graph --oneline --abrev-commit --decorate $*"
+alias gil="git log --graph --oneline --decorate $*"
+alias gid="git diff --cached $*"
+alias gids="git diff --cached --stat $*"
+
+alias bxs="bundle exec rspec -I. spec/"
+
