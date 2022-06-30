@@ -52,6 +52,7 @@ function chruby
   set -gx GEM_HOME $GEMS/$RUBY_ENGINE/$c_ruby_version
   set -gx GEM_ROOT $RUBY_ROOT/lib/ruby/gems/(ls $RUBY_ROOT/lib/ruby/gems)[1]
   set -gx GEM_PATH $GEM_HOME:$GEM_ROOT
+  #echo "\$RUBIES: $RUBIES"
   #echo "\$RUBY_ROOT: $RUBY_ROOT"
   #echo "\$GEM_HOME: $GEM_HOME"
   #echo "\$GEM_ROOT: $GEM_ROOT"
@@ -63,6 +64,7 @@ function chruby
     #
   for pa in $PATH
     set pa (realpath $pa)
+    if test -z $pa; continue; end
     if test (string sub -l $rl $pa) = $RUBIES; continue; end
     if test (string sub -l $gl $pa) = $GEMS; continue; end
     if contains $pa $path; continue; end
