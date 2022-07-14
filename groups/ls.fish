@@ -1,4 +1,7 @@
 
+# doas pkg_add colorls
+#
+# :-)
 
 #export LSCOLORS=gxfxbEaEBxxEhEhBaDaCaD
 #export LSCOLORS=exfxfeaeBxxehehbadacea
