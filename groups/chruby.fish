@@ -7,13 +7,13 @@
 #
 function chruby
 
-  set -l RUBIES (realpath ~/.rubies)
-  set -l GEMS (realpath ~/.gem)
-
   if test "$argv" = "list"
-    for r in $RUBIES/*; echo (basename $r); end
+    __chruby_list
     return 0
   end
+
+  set -l RUBIES (realpath ~/.rubies)
+  set -l GEMS (realpath ~/.gem)
 
   set -q FISH_NO_CHRUBY; if test $status = 0; return 0; end
 
@@ -85,5 +85,25 @@ end
 function l --on-variable PWD
 
   chruby
+end
+
+
+function __chruby_list
+
+  for r in (realpath ~/.rubies)/*
+    if test -e $r/bin/ruby
+      echo (basename $r) '-->' (string replace -r ' on .+' '' ($r/bin/ruby --version))
+    end
+  end
+
+  for r in /usr/local/bin/ruby*
+    set -l rr (basename $r)
+    if test -z (string match -r '^ruby[0-9]+$' $rr)
+    else
+      echo $rr '-->' ($r --version)
+    end
+  end
+
+  return 0
 end
 
