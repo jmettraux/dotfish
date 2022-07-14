@@ -28,6 +28,13 @@ function chruby
   end
   set as (string join '-' $as)
 
+  set -l x
+  for r in (__chruby_list)
+    set x $(string match "*$as*" $r)
+    if test "$x" != ""; break; end
+  end
+  set as (string split ' ' $x)[1]
+
   set -l rubyver (ls (realpath ~/.rubies) | grep $as | head -1)
     #
   if test "$rubyver" != ""
@@ -156,7 +163,7 @@ function __chruby_clean_path
   set -l path
     #
   for pa in $PATH
-    set pa (realpath $pa)
+    #set pa (realpath $pa)
     if test -z $pa; continue; end
     if test (string sub -l $rl $pa) = $RUBIES; continue; end
     if test (string sub -l $gl $pa) = $GEMS; continue; end
@@ -179,8 +186,7 @@ function __chruby_pkg_set
   set -l GEMS (realpath ~/.gem)
 
   set -l gempath (ruby -e 'puts Gem.path' | grep "$GEMS")
-  set -l gempath (ruby -e 'puts Gem.path' | grep "$GEMS")
-  echo "gempath:>$gempath<"
+  #echo "gempath:>$gempath<"
 
   mkdir -p $gempath
   mkdir -p $gempath/cache
