@@ -163,7 +163,6 @@ function __chruby_clean_path
     if contains $pa $path; continue; end
     set path $path $pa
   end
-echo "path:$path"
 
   set -gx PATH $GEM_HOME/bin $GEM_ROOT/bin $RUBY_ROOT/bin $path
 end
@@ -177,12 +176,16 @@ function __chruby_pkg_set
   alias gem="/usr/local/bin/gem$v"
   alias bundle="/usr/local/bin/bundle$v"
 
-  #set -l GEMS (realpath ~/.gem)
+  set -l GEMS (realpath ~/.gem)
 
-  #set -l gempath (ruby -e 'puts Gem.path' | grep "$GEMS")
-  #echo "gempath:>$gempath<"
+  set -l gempath (ruby -e 'puts Gem.path' | grep "$GEMS")
+  set -l gempath (ruby -e 'puts Gem.path' | grep "$GEMS")
+  echo "gempath:>$gempath<"
 
-  #ln -s "/usr/local/bin/gem$v" (realpath ~/bin)/gem
+  mkdir -p $gempath
+  mkdir -p $gempath/cache
+
+  set -gx GEM_HOME $gempath
 
   if test "$FISH_CHRUBY_SILENT" = ""
     echo "ruby set to"
