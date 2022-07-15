@@ -13,6 +13,7 @@ function chruby
 
   set -q FISH_NO_CHRUBY; if test $status = 0; return 0; end
 
+  __chruby_clean_links
   __chruby_clean_vars
   __chruby_clean_path
 
@@ -174,14 +175,27 @@ function __chruby_clean_path
   set -gx PATH $GEM_HOME/bin $GEM_ROOT/bin $RUBY_ROOT/bin $path
 end
 
+function __chruby_clean_links
+
+  rm -f ~/bin/ruby
+  rm -f ~/bin/gem
+  rm -f ~/bin/bundle
+end
+
 function __chruby_pkg_set
 
   set -l rubyver (string replace -r '\*' '' $argv[1])
   set -l v (string match -r '\d+' $rubyver)
 
-  alias ruby="/usr/local/bin/$rubyver"
-  alias gem="/usr/local/bin/gem$v"
-  alias bundle="/usr/local/bin/bundle$v"
+  #alias ruby="/usr/local/bin/$rubyver"
+  #alias gem="/usr/local/bin/gem$v"
+  #alias bundle="/usr/local/bin/bundle$v"
+    #
+    # no, because it doesn't work in Makefile and subshells...
+
+  ln -s /usr/local/bin/ruby$v ~/bin/ruby
+  ln -s /usr/local/bin/gem$v ~/bin/gem
+  ln -s /usr/local/bin/bundle$v ~/bin/bundle
 
   set -l GEMS (realpath ~/.gem)
 
