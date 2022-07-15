@@ -13,7 +13,6 @@ function chruby
 
   set -q FISH_NO_CHRUBY; if test $status = 0; return 0; end
 
-  __chruby_clean_links
   __chruby_clean_vars
   __chruby_clean_path
 
@@ -27,26 +26,28 @@ function chruby
       return 0
     end
   end
-  set as (string join '-' $as)
+  set -l r0 (string join '-' $as)
+  set -l r1 (string join ' ' $as)
 
   set -l x
   for r in (__chruby_list)
-    set x $(string match "*$as*" $r)
+
+    set x $(string match "*$r0*" $r)
+    if test "$x" != ""; break; end
+
+    set x $(string match "*$r1*" $r)
     if test "$x" != ""; break; end
   end
-  set as (string split ' ' $x)[1]
+  set -l r (string split ' --> ' $x)[1]
+  set -l p (string split '/' $r)[2]
 
-  set -l rubyver (ls (realpath ~/.rubies) | grep $as | head -1)
-    #
-  if test "$rubyver" != ""
-    __chruby_dot_set $rubyver
+  if test "$p" = "home"
+    __chruby_dot_set $r
     return 0
   end
 
-  set -l rubyver (ls /usr/local/bin/ | grep ruby | grep $as | head -1)
-    #
-  if test "$rubyver" != ""
-    __chruby_pkg_set $rubyver
+  if test "$p" = "usr"
+    __chruby_pkg_set $r
     return 0
   end
 
@@ -67,15 +68,14 @@ function __chruby_list
 
   for r in (realpath ~/.rubies)/*
     if test -e $r/bin/ruby
-      echo (basename $r) '-->' (string replace -r ' on .+' '' ($r/bin/ruby --version))
+      echo "$r/bin/ruby -->" (string replace -r ' on .+' '' ($r/bin/ruby --version))
     end
   end
 
   for r in /usr/local/bin/ruby*
-    set -l rr (basename $r)
-    if test -z (string match -r '^ruby[0-9]+$' $rr)
+    if test -z (string match -r '^ruby[0-9]+$' (basename $r))
     else
-      echo $rr '-->' ($r --version)
+      echo $r '-->' ($r --version)
     end
   end
 end
@@ -106,41 +106,6 @@ function __chruby_current
   echo "--- bundle --version"
   which bundle
   bundle --version
-end
-
-function __chruby_dot_set
-
-  set -l rubyver (string replace -r '/' '' $argv[1])
-
-  set -l RUBIES (realpath ~/.rubies)
-  set -l GEMS (realpath ~/.gem)
-
-  set -l rubyev (string split "-" -- $rubyver)
-
-  set -gx RUBY_ENGINE $rubyev[1]
-  set -gx RUBY_VERSION $rubyev[2]
-
-  set -l c_ruby_version $RUBY_VERSION
-    #
-  if test $RUBY_ENGINE = 'jruby'
-    set c_ruby_version \
-      (string join "." \
-        (string split "." -- $RUBY_VERSION)[2..-1])
-  end
-
-  set -gx RUBY_ROOT $RUBIES/$rubyver
-  set -gx GEM_HOME $GEMS/$RUBY_ENGINE/$c_ruby_version
-  set -gx GEM_ROOT $RUBY_ROOT/lib/ruby/gems/(ls $RUBY_ROOT/lib/ruby/gems)[1]
-  set -gx GEM_PATH $GEM_HOME:$GEM_ROOT
-
-  set -gx PATH $GEM_HOME/bin $GEM_ROOT/bin $RUBY_ROOT/bin $PATH
-
-  if test "$FISH_CHRUBY_SILENT" = ""
-    #echo "ruby set to $RUBY_ROOT"
-    echo "ruby set to"
-    echo "  $(which ruby)"
-    echo "  $(ruby --version)"
-  end
 end
 
 function __chruby_clean_vars
@@ -175,11 +140,40 @@ function __chruby_clean_path
   set -gx PATH $GEM_HOME/bin $GEM_ROOT/bin $RUBY_ROOT/bin $path
 end
 
-function __chruby_clean_links
+function __chruby_dot_set
 
-  rm -f ~/bin/ruby
-  rm -f ~/bin/gem
-  rm -f ~/bin/bundle
+  set -l rubyver (string split '/' $argv[1])[5]
+  echo ">$rubyver<"
+
+  set -l RUBIES (realpath ~/.rubies)
+  set -l GEMS (realpath ~/.gem)
+
+  set -l rubyev (string split "-" -- $rubyver)
+
+  set -gx RUBY_ENGINE $rubyev[1]
+  set -gx RUBY_VERSION $rubyev[2]
+
+  set -l c_ruby_version $RUBY_VERSION
+    #
+  if test $RUBY_ENGINE = 'jruby'
+    set c_ruby_version \
+      (string join "." \
+        (string split "." -- $RUBY_VERSION)[2..-1])
+  end
+
+  set -gx RUBY_ROOT $RUBIES/$rubyver
+  set -gx GEM_HOME $GEMS/$RUBY_ENGINE/$c_ruby_version
+  set -gx GEM_ROOT $RUBY_ROOT/lib/ruby/gems/(ls $RUBY_ROOT/lib/ruby/gems)[1]
+  set -gx GEM_PATH $GEM_HOME:$GEM_ROOT
+
+  set -gx PATH $GEM_HOME/bin $GEM_ROOT/bin $RUBY_ROOT/bin $PATH
+
+  if test "$FISH_CHRUBY_SILENT" = ""
+    #echo "ruby set to $RUBY_ROOT"
+    echo "ruby set to"
+    echo "  $(which ruby)"
+    echo "  $(ruby --version)"
+  end
 end
 
 function __chruby_pkg_set
@@ -193,9 +187,14 @@ function __chruby_pkg_set
     #
     # no, because it doesn't work in Makefile and subshells...
 
-  ln -s /usr/local/bin/ruby$v ~/bin/ruby
-  ln -s /usr/local/bin/gem$v ~/bin/gem
-  ln -s /usr/local/bin/bundle$v ~/bin/bundle
+  set -l path ~/.pkg_rubies/ruby$v
+  mkdir -p $path
+    #
+  if ! test -e $path/ruby
+    ln -s /usr/local/bin/ruby$v $path/ruby
+    ln -s /usr/local/bin/gem$v $path/gem
+    ln -s /usr/local/bin/bundle$v $path/bundle
+  end
 
   set -l GEMS (realpath ~/.gem)
 
@@ -206,6 +205,8 @@ function __chruby_pkg_set
   mkdir -p $gempath/cache
 
   set -gx GEM_HOME $gempath
+
+  set -gx PATH $path $PATH
 
   if test "$FISH_CHRUBY_SILENT" = ""
     echo "ruby set to"
