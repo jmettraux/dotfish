@@ -21,7 +21,8 @@ function chruby
   set -l as $argv
   if test (count $argv) = 0
     if test -f .ruby-version
-      set as (cat .ruby-version)
+      set -l m (string match -r '^\s*(.+)[ -]+(.+)\s*$' (cat .ruby-version))
+      set as $m[2] $m[3]
     else
       return 0
     end
