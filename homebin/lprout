@@ -1,4 +1,4 @@
-#!/usr/local/bin/ruby26
+#!/usr/local/bin/ruby27
 
 H = ENV['HOME']
 
