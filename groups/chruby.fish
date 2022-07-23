@@ -144,7 +144,7 @@ end
 function __chruby_dot_set
 
   set -l rubyver (string split '/' $argv[1])[5]
-  echo ">$rubyver<"
+  #echo ">$rubyver<"
 
   set -l RUBIES (realpath ~/.rubies)
   set -l GEMS (realpath ~/.gem)
