@@ -8,6 +8,9 @@
 #
 function chruby
 
+  mkdir -p ~/.rubies
+  mkdir -p ~/.gem
+
   if test "$argv" = "list"; __chruby_list; return 0; end
   if test "$argv" = "current"; __chruby_current; return 0; end
 
@@ -27,6 +30,7 @@ function chruby
       return 0
     end
   end
+
   set -l r0 (string join '-' $as)
   set -l r1 (string join ' ' $as)
 
