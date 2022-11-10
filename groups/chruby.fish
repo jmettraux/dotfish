@@ -72,6 +72,13 @@ end
 function __chruby_list
 
   for r in (realpath ~/.rubies)/*
+
+    # link bin/ruby -> bin/jruby if necessary
+    #
+    if ! test -e $r/bin/ruby; and test -e $r/bin/jruby
+      ln -s $r/bin/jruby $r/bin/ruby
+    end
+
     if test -e $r/bin/ruby
       echo "$r/bin/ruby -->" (string replace -r ' on .+' '' ($r/bin/ruby --version))
     end
