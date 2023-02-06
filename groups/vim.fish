@@ -45,6 +45,12 @@ function vl
   vim -c "call feedkeys(\";l\")" # open git log
 end
 
+function vdict
+  vim -c "call JmDictLookup('$argv')"
+end
+#alias vdic=vdict
+alias dicv=vdict
+
 function vt
   if test (count $argv) -lt 1
     vim -c ":Vt ."
