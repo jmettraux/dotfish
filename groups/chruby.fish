@@ -210,7 +210,7 @@ function __chruby_pkg_set
 
   set -l GEMS (realpath ~/.gem)
 
-  set -l gempath (ruby -e 'puts Gem.path' | grep "$GEMS")
+  set -l gempath ($path/ruby -e 'puts Gem.path' | grep "$GEMS")
   #echo "gempath:>$gempath<"
 
   mkdir -p $gempath
