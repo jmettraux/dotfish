@@ -118,3 +118,7 @@ function va
   end
 end
 
+function swaf -d "find all the .swp files here and below"
+  find . -name "*.swp"
+end
+
