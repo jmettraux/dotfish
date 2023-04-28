@@ -58,6 +58,7 @@ function vt
     vim -c ":Vt $argv"
   end
 end
+alias Vt vt
 
 function vT
   vim -c "call feedkeys(\";t\")" # open .todo.md
