@@ -8,3 +8,6 @@
 
 locals/*.fish
 
+.chat.md
+.openai.*
+
