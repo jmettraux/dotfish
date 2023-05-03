@@ -2,13 +2,13 @@
 
 RES = "[0;0m"
 #BRI = "[1m"
-RED = "[31m"
+#RED = "[31m"
 GRN = "[32m"
 YEL = "[33m"
 #LGN = "[92m"
-LGR = "[37m"
+#LGR = "[37m"
 DGR = "[90m"
-WHT = "[97m"
+#WHT = "[97m"
   #
   # reset 0;0
   # bright 1 dim 2 underlined 4 blink 5 reverse 7 hidden 8 default 39
@@ -37,11 +37,9 @@ end
 
 puts
 print "kill -9 what process? "
-s = $stdin.gets
 
-l = ls[s.to_i]
-
-exit 1 if ! l
+s = ($stdin.gets || '').strip; exit 0 if s == ''
+l = ls[s.to_i]; exit 1 if ! l
 
 pid = l.split(' ').first
 
