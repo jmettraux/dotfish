@@ -23,29 +23,36 @@ DGR = "[90m"
 
 cols = `tput cols`.to_i - 6
 
-ls = `ps -f`.split("\n")
+loop do
 
-puts
-puts '      ' + GRN + ls[0]
+  ls = `ps -f`.split("\n")
 
-ls[1..-1].each_with_index do |l, i|
-  print DGR if ((i + 0) / 3) % 2 == 0
-  print "%3d - %s" % [ i, l[0, cols] ]
-  print RES
-  print "\n"
+  puts
+  puts '      ' + GRN + ls[0]
+
+  ls[1..-1].each_with_index do |l, i|
+    print DGR if ((i + 0) / 3) % 2 == 0
+    print "%3d - %s" % [ i, l[0, cols] ]
+    print RES
+    print "\n"
+  end
+
+  puts
+  print "kill -9 what process? "
+
+  s = ($stdin.gets || '').strip
+
+  exit 0 if s == ''
+  exit 0 if s.match?(/^(q|quit|x|exit)/)
+
+  l = ls[s.to_i]; exit 1 if ! l
+
+  pid = l.split(' ').first
+
+  puts(YEL + "kill -9 #{pid}" + RES)
+
+  system("kill -9 #{pid}")
+
+  puts
 end
-
-puts
-print "kill -9 what process? "
-
-s = ($stdin.gets || '').strip; exit 0 if s == ''
-l = ls[s.to_i]; exit 1 if ! l
-
-pid = l.split(' ').first
-
-puts(YEL + "kill -9 #{pid}" + RES)
-
-system("kill -9 #{pid}")
-
-puts
 
