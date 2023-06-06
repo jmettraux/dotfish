@@ -122,4 +122,10 @@ end
 function swaf -d "find all the .swp files here and below"
   find . -name "*.swp"
 end
+function swav -d "find the first file with a .swp and edit it"
+  vim $(find . -name "*.swp" | head -1 | ruby -e "m = STDIN.read.strip.match(/^(.*\/)(\.[^\/]+)/); puts \"#{m[1]}#{m[2][1..-5]}\"")
+end
+function swar -d "find the first .swp file and delete it"
+  rm $(find . -name "*.swp" | head -1)
+end
 
