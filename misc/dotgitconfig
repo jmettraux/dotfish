@@ -1,0 +1,22 @@
+
+[color]
+  diff = auto
+  status = auto
+  branch = auto
+[user]
+  name = John Mettraux
+  email = jmettraux@gmail.com
+[github]
+  user = jmettraux
+  token = xxx
+[push]
+  default = current
+
+[pull]
+	ff = only
+[init]
+	defaultBranch = main
+[alias]
+	stage = add
+	unstage = reset
+
