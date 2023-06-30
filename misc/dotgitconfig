@@ -19,6 +19,6 @@
 [alias]
 	stage = add
 	unstage = reset
-    co = commit
+	co = commit
 	ca = commit -a
 
