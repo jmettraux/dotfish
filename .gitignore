@@ -4,6 +4,7 @@
 .vimgrep
 .vimmarks
 .vimspec
+.vimfuzz
 *.swp
 
 locals/*.fish

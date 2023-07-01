@@ -12,8 +12,11 @@ function :e
   vim $argv
 end
 
-function vf
+function vF
   vim (find . -name "*$argv[1]*" | head -1)
+end
+function vf
+  vim -c ":silent call JmFuzzer()"
 end
 
 function vss
