@@ -16,7 +16,13 @@ if status is-interactive
   #bind -k \sleft backward-char
 
   bind -M insert \cj history-search-backward
-  bind -M insert \c] forward-char
+
+  # By default TAB does "complete"...
+  #
+  bind -M insert \cl forward-char
+  #bind -M insert \c] forward-char
+  bind -M insert \t forward-char
+  bind -M insert \s\t complete
 end
 
 set -x PATH ~/bin $PATH
