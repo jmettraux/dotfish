@@ -16,7 +16,7 @@ function vF
   vim (find . -name "*$argv[1]*" | head -1)
 end
 function vf
-  vim -c ":silent call JmFuzzer()"
+  vim -c ":silent call JmFuzzer('$argv')"
 end
 
 function vss
