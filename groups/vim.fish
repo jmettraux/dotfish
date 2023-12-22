@@ -19,6 +19,10 @@ function vf
   vim -c ":silent call JmFuzzer('$argv')"
 end
 
+function vz
+  vim -c ":silent call JmZapicat('$argv')"
+end
+
 function vss
 
   set paths lib out
