@@ -1,10 +1,5 @@
 
-.vimrc
-.viminfo
-.vimgrep
-.vimmarks
-.vimspec
-.vimfuzz
+.vim*
 *.swp
 
 locals/*.fish
