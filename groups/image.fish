@@ -27,3 +27,10 @@ end
   # optipng
   # pngquant
 
+function tojpg
+
+  for arg in $argv
+    echo "$arg --> $arg.jpg"
+    convert $arg $arg.jpg
+  end
+end
