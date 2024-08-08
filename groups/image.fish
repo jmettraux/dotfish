@@ -1,5 +1,7 @@
 
-# image
+#
+# image.fish
+
 
 function iid
 
@@ -34,3 +36,4 @@ function tojpg
     convert $arg $arg.jpg
   end
 end
+
