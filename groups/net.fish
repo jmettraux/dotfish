@@ -15,3 +15,6 @@ function routes
   route -n show -inet
 end
 
+function renet
+  doas sh /etc/netstart $argv
+end
