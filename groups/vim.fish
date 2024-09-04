@@ -74,6 +74,13 @@ function vtd
   vim -c "call feedkeys(\";t\")" # open .todo.md
 end
 
+function vn
+  vim -c "call feedkeys(\";n\")" # open .notes.md
+end
+function vno
+  vim -c "call feedkeys(\";n\")" # open .notes.md
+end
+
 function vp
   vim -c "OpenPrevious"
 end
