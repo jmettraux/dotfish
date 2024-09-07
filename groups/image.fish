@@ -31,7 +31,7 @@ end
 
 function tojpg
 
-  for arg in $argv
+  for arg in (string split " " -- (eval echo $argv))
     echo "$arg --> $arg.jpg"
     convert $arg $arg.jpg
   end
