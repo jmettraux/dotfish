@@ -2,6 +2,8 @@
 
 H = ENV['HOME']
 
+# NOTE pdftops is part of the "popper-utils" package
+
 pdftops_options = '-rasterize never'
 
 
