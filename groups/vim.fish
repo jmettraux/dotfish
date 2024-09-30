@@ -146,3 +146,7 @@ function swar -d "find the first .swp file and delete it"
   rm $(find . -name "*.swp" | head -1)
 end
 
+function vii
+  /usr/bin/vi $argv
+end
+
