@@ -1,0 +1,24 @@
+#!/usr/local/bin/ruby33
+
+require 'csv'
+
+fpath = ARGV.find { |a| a.match?(/\.csv$/) }
+
+data = CSV.read(fpath)
+
+col_count = data
+  .inject(0) { |c, row| [ c, row.length ].max }
+
+col_widths = data
+  .inject([ 0 ] * col_count) { |a, row|
+    row.each_with_index { |c, i| a[i] = [ a[i], c.to_s.length ].max }
+    a }
+
+data.each do |row|
+  row.each_with_index do |cell, i|
+    c = cell.to_s
+    $stdout << c << ', ' << ' ' * (col_widths[i] - c.length)
+  end
+  print "\n"
+end
+
