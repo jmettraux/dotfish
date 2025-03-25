@@ -17,7 +17,11 @@ function bxr
 end
 
 function bxp
-  bundle exec proba $argv
+  if string match -q '*jruby*' (which ruby)
+    jruby -J-Xms1024m -J-Xmx1024m -S bundle exec proba $argv
+  else
+    bundle exec proba $argv
+  end
 end
 
 #alias bxsdr="bundle exec rspec --dry-run"
