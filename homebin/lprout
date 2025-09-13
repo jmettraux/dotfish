@@ -4,13 +4,16 @@ H = ENV['HOME']
 
 # NOTE pdftops is part of the "popper-utils" package
 
-pdftops_options = '-rasterize never'
+#pdftops_options = '-rasterize never -level3'
+pdftops_options = '-rasterize never -level3 -paper A4'
+  #
+  # the `-paper A4` is crucial for Duplex to be observed it seems...
 
 
 # out.pdf prints SIMPLEX
 
-out = "#{H}/Downloads/out.pdf"
-bak = "#{H}/Downloads/out.bak.pdf"
+out =  "#{H}/Downloads/out.pdf"
+bak =  "#{H}/Downloads/out.bak.pdf"
 last = "#{H}/.last_out_pdf"
 
 m0 = File.read(last).strip.to_f rescue 0.0
@@ -26,10 +29,10 @@ end
 
 # out2.pdf prints /Duplex true /Tumble true
 
-out = "#{H}/Downloads/out2.pdf"
-bak = "#{H}/Downloads/out2.bak.pdf"
-ps = "#{H}/Downloads/out_.ps"
-ps2 = "#{H}/Downloads/out2.ps"
+out =  "#{H}/Downloads/out2.pdf"
+bak =  "#{H}/Downloads/out2.bak.pdf"
+ps =   "#{H}/Downloads/out2_.ps"
+ps2 =  "#{H}/Downloads/out2.ps"
 last = "#{H}/.last_out2_pdf"
 
 m0 = File.read(last).strip.to_f rescue 0.0
@@ -42,20 +45,22 @@ if m > m0
   File.open(ps2, 'wb') do |f|
     f.write("%!\n")
     f.write("<< /Duplex true /Tumble true >> setpagedevice\n")
-    f.write(File.read(ps))
+    #f.write(File.read(ps))
   end
+  system("cat #{ps} >> #{ps2}")
+
   system("/usr/bin/lpr #{ps2}")
-  system("rm #{ps} #{ps2}")
+  #system("rm #{ps} #{ps2}")
   system("mv #{out} #{bak}")
 end
 
 
 # out2f.pdf prints /Duplex true /Tumble false
 
-out = "#{H}/Downloads/out2f.pdf"
-bak = "#{H}/Downloads/out2f.bak.pdf"
-ps = "#{H}/Downloads/out_.ps"
-ps2 = "#{H}/Downloads/out2f.ps"
+out =  "#{H}/Downloads/out2f.pdf"
+bak =  "#{H}/Downloads/out2f.bak.pdf"
+ps =   "#{H}/Downloads/out2f_.ps"
+ps2 =  "#{H}/Downloads/out2f.ps"
 last = "#{H}/.last_out2f_pdf"
 
 m0 = File.read(last).strip.to_f rescue 0.0
@@ -68,10 +73,12 @@ if m > m0
   File.open(ps2, 'wb') do |f|
     f.write("%!\n")
     f.write("<< /Duplex true /Tumble false >> setpagedevice\n")
-    f.write(File.read(ps))
+    #f.write(File.read(ps))
   end
+  system("cat #{ps} >> #{ps2}")
+
   system("/usr/bin/lpr #{ps2}")
-  system("rm #{ps} #{ps2}")
+  #system("rm #{ps} #{ps2}")
   system("mv #{out} #{bak}")
 end
 
