@@ -7,6 +7,8 @@ function autorun --on-variable PWD
 
   if test -e .autoenv.fish
     source .autoenv.fish
+    echo "sourced"
+    echo "  .autoenv.fish"
   end
 end
 
