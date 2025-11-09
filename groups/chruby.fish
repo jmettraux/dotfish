@@ -182,9 +182,10 @@ function __chruby_dot_set
 
   if test "$FISH_CHRUBY_SILENT" = ""
     #echo "ruby set to $RUBY_ROOT"
-    echo "ruby set to"
-    echo "  $(which ruby)"
-    echo "  $(ruby --version)"
+    #echo -e "\033[1;31mruby set to"
+    echo -e "\033[38;2;219;27;27mruby set to"
+    echo -e "  $(which ruby)"
+    echo -e "  $(ruby --version)\033[0m"
   end
 end
 
@@ -221,9 +222,10 @@ function __chruby_pkg_set
   set -gx PATH $path $PATH
 
   if test "$FISH_CHRUBY_SILENT" = ""
-    echo "ruby set to"
-    echo "  /usr/local/bin/$rubyver"
-    echo "  $(ruby --version)"
+    #echo -e "\033[31mruby set to"
+    echo -e "\033[38;2;219;27;27mruby set to"
+    echo -e "  /usr/local/bin/$rubyver"
+    echo -e "  $(ruby --version)\033[0m"
   end
 end
 
