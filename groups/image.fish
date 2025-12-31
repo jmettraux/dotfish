@@ -37,3 +37,17 @@ function tojpg
   end
 end
 
+function towebjpg
+
+  for arg in (string split " " -- (eval echo $argv))
+    echo "$arg --> $arg.jpg"
+    convert $arg \
+      -auto-orient \
+      -resize '1024x1024>' \
+      -strip \
+      -quality 84 \
+      -interlace Plane \
+        $arg.jpg
+  end
+end
+
