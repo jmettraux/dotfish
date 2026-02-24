@@ -29,6 +29,10 @@ end
 set -x PATH ~/bin $PATH
 set -x MANPAGER less
 
+# bat --list-themes
+set -x BAT_THEME "zenburn"
+#set -x BAT_THEME "Solarized (dark)"
+
 
 set fish_function_path ~/.fish/functions $fish_function_path
 
