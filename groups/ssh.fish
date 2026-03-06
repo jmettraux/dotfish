@@ -79,3 +79,20 @@ function add_ssh_keys
   ssh-add ~/.ssh/(hostname -s) ~/.ssh/github
 end
 
+function sadd
+
+  set -l keys
+  for path in ~/.ssh/*
+    test -f $path; or continue
+    set -l pa (basename $path)
+    string match -q '*.pub' $pa; and continue
+    string match -q '*.env' $pa; and continue
+    string match -q 'config' $pa; and continue
+    string match -q 'authorized_keys' $pa; and continue
+    string match -q 'known_hosts*' $pa; and continue
+    set keys $keys $path
+  end
+
+  ssh-add $keys
+end
+
