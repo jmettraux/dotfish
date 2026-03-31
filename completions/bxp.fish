@@ -6,6 +6,7 @@
 #
 
 set OUTF .probatio-output.rb
+set TPF .test-point
 
 function __bxp_paths_completion
 
@@ -17,8 +18,12 @@ function __bxp_paths_completion
       end
     end
   end
+
+  if test -f $TPF
+    cat $TPF
+  end
 end
 
 complete -c bxp -a '(__bxp_paths_completion)'
-complete -c bxp -a "(__fish_complete_path)"
+complete -c bxp -a '(__fish_complete_path)'
 
