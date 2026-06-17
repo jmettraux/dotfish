@@ -129,6 +129,10 @@ function vj
   vim -c "call feedkeys(\";j\")" # scripts/ js/ or src/
 end
 
+function vjs
+  vt scripts/
+end
+
 function va
   if test -d app/views/; vt app/views/
   else if test -d app/; vt app/
