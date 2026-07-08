@@ -8,7 +8,7 @@
 #  set -x PATH /usr/local/jdk-11/bin $PATH
 #end
 
-for dir in (ls -d /usr/local/jdk-* 2>/dev/null | sort -rV)
+for dir in (ls -d /usr/local/ | string match "jdk-*" | sort -rV)
 
   if test -d $dir
 
