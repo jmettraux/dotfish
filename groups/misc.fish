@@ -7,3 +7,8 @@ function mkncd
   cd $argv
 end
 
+function kal
+
+  cal -mw | perl -pe 's/\[(\d+)\]/  w$1/'
+end
+
