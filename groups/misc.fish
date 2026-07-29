@@ -7,8 +7,17 @@ function mkncd
   cd $argv
 end
 
+function kaal
+
+  cal -mw $argv | \
+    perl -pe 's/\[(\d+)\]/  w$1/' | \
+    perl -pe 's/Su/Su\n/' | \
+    perl -pe 's/Mo/\nMo/'
+end
+
 function kal
 
-  cal -mw | perl -pe 's/\[(\d+)\]/  w$1/'
+  cal -mw $argv | \
+    perl -pe 's/\[(\d+)\]/  w$1/'
 end
 
