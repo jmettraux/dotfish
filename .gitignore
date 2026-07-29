@@ -6,4 +6,6 @@ locals/*.fish
 
 .chat.md
 .openai.*
+.claude*
+.klaude*
 
