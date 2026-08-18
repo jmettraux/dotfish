@@ -18,6 +18,6 @@ end
 function kal
 
   cal -mw $argv | \
-    perl -pe 's/\[(\d+)\]/  w$1/'
+    perl -pe 's/\[(\d+)\]/ w$1/'
 end
 
