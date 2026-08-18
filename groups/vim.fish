@@ -62,10 +62,14 @@ end
 alias dicv=vdict
 
 function vt
-  if test (count $argv) -lt 1
+  if test (count $argv) -eq 0
     vim -c ":Vt ."
-  else
+  else if test -d $argv[1]
     vim -c ":Vt $argv"
+  else if test -f $argv[1]
+    vim $argv
+  else
+    echo "vt: neither file nor directory: $argv[1]"
   end
 end
 alias Vt vt
