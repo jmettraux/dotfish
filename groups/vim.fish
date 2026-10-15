@@ -107,6 +107,13 @@ function vc # vi spec
   end
 end
 
+function vcu
+  set f (find . -name "*.cuts" -print)
+  if test -f "$f"; vim $f
+  else; echo "no .cuts file found"; exit 1
+  end
+end
+
 function vv # vi content
   if test -d posts/; vt posts/
   else if test -d src/; vt src/
