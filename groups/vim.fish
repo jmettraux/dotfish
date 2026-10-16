@@ -58,8 +58,8 @@ end
 function vdict
   vim -c "call JmDictLookup('$argv')"
 end
-#alias vdic=vdict
-alias dicv=vdict
+#alias vdic vdict
+alias dicv vdict
 
 function vt
   if test (count $argv) -eq 0
@@ -113,6 +113,7 @@ function vcu
   else; echo "no .cuts file found"; exit 1
   end
 end
+alias vuc vcu
 
 function vv # vi content
   if test -d posts/; vt posts/
