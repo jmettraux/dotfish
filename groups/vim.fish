@@ -110,7 +110,7 @@ end
 function vu
   set f (find . -name "*.cuts" -print)
   if test -f "$f"; vim $f
-  else; echo "no .cuts file found"; exit 1
+  else; echo "no .cuts file found";
   end
 end
 
