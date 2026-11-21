@@ -108,7 +108,7 @@ function vc # vi spec
 end
 
 function vu
-  set f (find . -name "*.cuts" -print)
+  set f (find . -name "*.cuts" -print)[1]
   if test -f "$f"; vim $f
   else; echo "no .cuts file found";
   end
